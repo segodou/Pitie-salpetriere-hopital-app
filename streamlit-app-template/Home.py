@@ -58,9 +58,11 @@ st.markdown("<div class='header'>Hôpitaux Universitaires - Pitié Salpêtrière
 
 
 
+from pathlib import Path
 
+css_file = Path(__file__).parent / "assets" / "css" / "style.css"
 # Chargement des styles CSS personnalisés
-with open("assets/css/style.css") as f:
+with open(css_file, "r") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # Titre principal
