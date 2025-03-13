@@ -15,7 +15,7 @@ st.set_page_config(
 
 
 # Chargement du logo
-logo_path = "assets/images/logo.png"  # Vérifie bien le chemin
+#logo_path = "assets/images/logo.png"  # Vérifie bien le chemin
 
 # --- HEADER ---
 st.markdown(
@@ -50,11 +50,11 @@ st.markdown(
 )
 
 # Affichage du logo et du titre
-col1, col2 = st.columns([1, 3])
-with col1:
-    st.image(logo_path, width=400)
-with col2:
-    st.markdown("<div class='header'>Hôpitaux Universitaires - Pitié Salpêtrière</div>", unsafe_allow_html=True)
+# col1, col2 = st.columns([1, 3])
+# with col1:
+#     st.image(logo_path, width=400)
+# with col2:
+st.markdown("<div class='header'>Hôpitaux Universitaires - Pitié Salpêtrière</div>", unsafe_allow_html=True)
 
 
 
