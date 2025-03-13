@@ -22,4 +22,4 @@ package-mode = false
 
 [tool.setuptools.packages.find]
 include = ["streamlit_app_template*"]
-exclude = ["data*", "pages*", "assets*", "models*"]
+
