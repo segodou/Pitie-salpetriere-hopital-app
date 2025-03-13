@@ -73,11 +73,13 @@ st.sidebar.info("Ces filtres s'appliquent à toutes les pages de l'application."
 
 
 
+dataset_path = Path(__file__).parent / "data" / "dataset_admission.csv"
 
 # Chargement et mise en cache des données
 @st.cache_data
 def get_data():
-    return load_data2("data/dataset_admission.csv")
+    return load_data2(str(dataset_path))  # Convertir en string pour compatibilité
+
 
 
 df = get_data()
