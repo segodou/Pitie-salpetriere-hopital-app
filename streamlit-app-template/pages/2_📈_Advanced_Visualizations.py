@@ -4,6 +4,7 @@ import sys
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+from pathlib import Path
 
 # Ajout du chemin racine au path pour pouvoir importer utils et config
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -14,8 +15,8 @@ from utils import load_data,load_data3
 st.set_page_config(page_title="Visualisations Avancées", page_icon="📈", layout="wide")
 
 
-# Chargement du logo
-# logo_path = "assets/images/logo.png"  # Vérifie bien le chemin
+# Définir le chemin absolu du logo
+logo_path = Path(__file__).parent.parent / "assets" / "images" / "logo.png"
 
 # --- HEADER ---
 st.markdown(
@@ -50,16 +51,17 @@ st.markdown(
 )
 
 # Affichage du logo et du titre
-# col1, col2 = st.columns([1, 3])
-# with col1:
-#     st.image(logo_path, width=400)
-# with col2:
-st.markdown("<div class='header'>Hôpitaux Universitaires - Pitié Salpêtrière</div>", unsafe_allow_html=True)
+col1, col2 = st.columns([1, 3])
+with col1:
+    st.image(logo_path, width=400)
+with col2:
+    st.markdown("<div class='header'>Hôpitaux Universitaires - Pitié Salpêtrière</div>", unsafe_allow_html=True)
 
 
 
+css_file = Path(__file__).parent.parent / "assets" / "css" / "style.css"
 # Chargement des styles CSS personnalisés
-with open("assets/css/style.css") as f:
+with open(css_file, "r") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # Titre de la page
@@ -68,10 +70,12 @@ st.markdown(
     "Découvrez d'autres types de visualisations pour analyser vos données d'admission."
 )
 
+dataset_path = Path(__file__).parent.parent / "data" / "dataset_admission.csv"
+
 # Chargement et mise en cache des données
 @st.cache_data
 def get_data():
-    return load_data3("data/dataset_admission.csv")
+    return load_data3(str(dataset_path))
 
 
 df = get_data()

@@ -10,12 +10,13 @@ import joblib
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
 from utils import load_data, load_data3
+from pathlib import Path
 
 # Configuration de la page
 st.set_page_config(page_title="Prédictions", page_icon="🔮", layout="wide")
 
-# Chargement du logo
-# logo_path = "assets/images/logo.png"  # Vérifie bien le chemin
+# Définir le chemin absolu du logo
+logo_path = Path(__file__).parent.parent / "assets" / "images" / "logo.png"
 
 # --- HEADER ---
 st.markdown(
@@ -50,26 +51,29 @@ st.markdown(
 )
 
 # Affichage du logo et du titre
-# col1, col2 = st.columns([1, 3])
-# with col1:
-#     st.image(logo_path, width=400)
-# with col2:
-st.markdown("<div class='header'>Hôpitaux Universitaires - Pitié Salpêtrière</div>", unsafe_allow_html=True)
+col1, col2 = st.columns([1, 3])
+with col1:
+    st.image(logo_path, width=400)
+with col2:
+    st.markdown("<div class='header'>Hôpitaux Universitaires - Pitié Salpêtrière</div>", unsafe_allow_html=True)
 
 
 
+css_file = Path(__file__).parent.parent / "assets" / "css" / "style.css"
 # Chargement des styles CSS personnalisés
-with open("assets/css/style.css") as f:
+with open(css_file, "r") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # Titre de la page
 st.title("🔮 Prédictions & Estimations")
 st.markdown("Projections basées sur les modèles de ML et de TS développés sur vos données historiques.")
 
+dataset_path = Path(__file__).parent.parent / "data" / "dataset_admission.csv"
+
 # Chargement et mise en cache des données
 @st.cache_data
 def get_data():
-    return load_data3("data/dataset_admission.csv")
+    return load_data3(str(dataset_path))
 
 
 df = get_data()
@@ -180,9 +184,14 @@ with col3:
 # --------- CHARGEMENT DES TRANSFORMATEURS ---------
 @st.cache_resource
 def load_transformers():
-    ordinal_encoder = joblib.load("models/ordinal_encoder.pkl")
-    onehot_encoder = joblib.load("models/onehot_encoder.pkl")
-    scaler = joblib.load("models/scaler.pkl")
+    # Définir le dossier des modèles en chemin absolu
+    models_dir = Path(__file__).parent.parent / "models"
+
+    # Charger les modèles avec des chemins absolus
+    ordinal_encoder = joblib.load(models_dir / "ordinal_encoder.pkl")
+    onehot_encoder = joblib.load(models_dir / "onehot_encoder.pkl")
+    scaler = joblib.load(models_dir / "scaler.pkl")
+
     return ordinal_encoder, onehot_encoder, scaler
 
 ordinal_encoder, onehot_encoder, scaler = load_transformers()
@@ -190,7 +199,11 @@ ordinal_encoder, onehot_encoder, scaler = load_transformers()
 # --------- CHARGEMENT DU MODÈLE PROPHET ---------
 @st.cache_resource
 def load_prophet_model():
-    return joblib.load("models/prophet_model.pkl")
+    # Définir le chemin absolu vers le modèle
+    model_path = Path(__file__).parent.parent / "models" / "prophet_model.pkl"
+    
+    # Charger le modèle
+    return joblib.load(model_path)
 
 prophet_model = load_prophet_model()
 
@@ -283,9 +296,14 @@ st.subheader("📊 Prédiction des Effectifs Médicaux")
 # --------- CHARGEMENT DES MODÈLES ---------
 @st.cache_resource
 def load_personnel_models():
-    model_medecins = joblib.load("models/model_nb_medecins.pkl")
-    model_infirmiers = joblib.load("models/model_nb_infirmiers.pkl")
-    model_aides_soignants = joblib.load("models/model_nb_aides_soignants.pkl")
+    # Définir le dossier contenant les modèles
+    models_dir = Path(__file__).parent.parent / "models"
+
+    # Charger les modèles avec des chemins absolus
+    model_medecins = joblib.load(models_dir / "model_nb_medecins.pkl")
+    model_infirmiers = joblib.load(models_dir / "model_nb_infirmiers.pkl")
+    model_aides_soignants = joblib.load(models_dir / "model_nb_aides_soignants.pkl")
+
     return model_medecins, model_infirmiers, model_aides_soignants
 
 model_medecins, model_infirmiers, model_aides_soignants = load_personnel_models()
