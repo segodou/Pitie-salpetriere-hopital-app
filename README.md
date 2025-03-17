@@ -26,10 +26,11 @@ Un template moderne et structuré pour créer des applications d'analyse de donn
 │   ├── css/
 │   │   └── style.css      # Styles CSS personnalisés
 │   └── images/            # Images pour l'application
+│   │   └── logo.png       
 ├── data/
-│   └── sales_data.parquet # Données de ventes (générées)
+│   └── dataset_admission  # Données de ventes (générées)
 ├── models/
-│   └── .gitkeep           # Dossier pour les modèles
+│   └── .pkl               # Dossier pour les modèles
 └── pages/                 # Pages supplémentaires
     ├── 1_📊_Exploratory_Analysis.py
     ├── 2_📈_Advanced_Visualizations.py
