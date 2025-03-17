@@ -47,7 +47,7 @@ Un template moderne et structuré pour créer des applications d'analyse de donn
 
 ```bash
 # Cloner le dépôt
-git clone https://github.com/yourusername/streamlit-app-template.git
+git clone https://github.com/segodou/Pitie-salpetriere-hopital-app.git
 cd streamlit-app-template
 
 # Créer et activer un environnement virtuel avec uv
@@ -79,25 +79,28 @@ L'application sera accessible à l'adresse `http://localhost:8501` par défaut.
 
 ## 📋 Pages de l'application
 
-1. **Home (Dashboard principal)**
-   - Vue d'ensemble des KPIs
-   - Évolution des ventes
-   - Filtres généraux applicables à toutes les pages
+1. **🏠 Home (Tableau de Bord Principal)**  
+   - Vue d’ensemble des indicateurs clés : nombre total d’admissions, durée moyenne de séjour, etc.  
+   - Évolution des admissions hospitalières sous forme de courbes interactives. 
+   - Répartition des admissions par sexe, tranche d’âge, gravité, service hospitalier, mode d’arrivée et type d’hospitalisation.  
+   - Filtres généraux permettant d’ajuster la période d’analyse et les variables pertinentes pour toutes les pages.  
 
-2. **Exploratory Analysis (Analyse exploratoire)**
-   - Distribution des ventes par catégorie
-   - Analyse temporelle (mensuelle, hebdomadaire)
-   - Analyse client simplifiée
+2. **📊 Exploratory Analysis (Analyse Exploratoire des Admissions)**  
+   - Analyse temporelle : évolution des admissions par jour, mois, année et saison pour identifier les tendances.  
+   - Corrélations entre les admissions et les facteurs externes : météo, événements spéciaux, vacances scolaires.  
+   - Étude de saisonnalité avec une décomposition des tendances des admissions hospitalières.  
 
-3. **Advanced Visualizations (Visualisations avancées)**
-   - Carte de chaleur des ventes
-   - Visualisations hiérarchiques (Treemap, Sunburst)
-   - Analyse comparative entre périodes
+3. **📈 Advanced Visualizations (Visualisations Avancées)**  
+   - Carte de chaleur des admission pour observer l’influence de la météo et des jours de la semaine.  
+   - Visualisations hiérarchiques (Treemap, Sunburst) montrant la répartition des admissions par saison et période spécifique.  
+   - Analyse comparative des admissions entre deux périodes sélectionnées, permettant d’évaluer les fluctuations et d’anticiper les besoins.  
 
-4. **Predictions (Prédictions et Projections)**
-   - Projections de ventes avec paramètres configurables
-   - Simulation de croissance par catégorie
-   - Téléchargement des projections au format Parquet
+4. **🔮 Predictions (Prédictions et Projections)**  
+   - Prédiction des admissions hospitalières grâce au modèle Prophet, avec ajustement des paramètres tels que la saison et les événements spéciaux.  
+   - Projection du personnel hospitalier (médecins, infirmiers, aides-soignants) en fonction des admissions prévues, grâce aux modèles XGBoost et Régression Linéaire.  
+   - Affichage des projections sur des graphiques interactifs, permettant de comparer les tendances historiques et les prévisions.  
+   - Téléchargement des projections au format CSV, incluant les admissions prédites et les effectifs hospitaliers recommandés.  
+
 
 ## 🧩 Dépendances principales
 
@@ -106,6 +109,11 @@ L'application sera accessible à l'adresse `http://localhost:8501` par défaut.
 - plotly
 - numpy
 - pyarrow (pour la prise en charge de Parquet)
+- statsmodels
+- joblib
+- prophet
+- scikit-learn
+- xgboost
 
 ## 💻 Développement
 
@@ -149,15 +157,6 @@ repos:
 pip install pre-commit
 pre-commit install
 ```
-
-## 🚀 Personnalisation
-
-Pour adapter ce template à vos besoins :
-
-1. Remplacez les données exemple par vos propres données (format Parquet recommandé)
-2. Modifiez les colonnes et métriques dans les scripts pour correspondre à vos données
-3. Personnalisez les couleurs et le thème dans `.streamlit/config.toml`
-4. Adaptez le style visuel dans `assets/css/style.css`
 
 ## 📄 Licence
 
